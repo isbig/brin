@@ -10,6 +10,7 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+import os.path
 from boto.s3.connection import S3Connection
 s3 = S3Connection(os.environ['CAT'], os.environ['CS'])
 
