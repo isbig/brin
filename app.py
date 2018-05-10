@@ -23,7 +23,7 @@ logging.basicConfig(level=logging.INFO)
 chatbot = ChatBot(
     "molin",
     trainer = 'chatterbot.trainers.ListTrainer',
-    database_uri=DATABASE_URL,
+    database_uri='postgres://lhbvkxmyghvnof:78be1cfb01151074d64ad1bcee4d0e14b83ef949bb6c2eae2ff037f16245bdb1@ec2-75-101-142-91.compute-1.amazonaws.com:5432/d9et88q8kcrht',
     storage_adapter="chatterbot.storage.SQLStorageAdapter")
 
 conversation = ["สวัสดี", "ทำอะไรอยู่", "กินอะไรหรือยัง", "นั่งเล่น", "กินแล้ว", "ฝันดี"]
