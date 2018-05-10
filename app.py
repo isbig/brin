@@ -23,7 +23,7 @@ logging.basicConfig(level=logging.INFO)
 chatbot = ChatBot(
     "molin",
     trainer = 'chatterbot.trainers.ListTrainer',
-    database_uri="postgres://dyqpeqyeiurdhq:8badb580880c049e90bb4afe7f36af39b6e7484d387de7653c321569394e498d@ec2-23-23-245-89.compute-1.amazonaws.com:5432/d2gmncd69hhm4g",
+    database_uri=DATABASE_URL,
     storage_adapter="chatterbot.storage.SQLStorageAdapter")
 
 conversation = ["สวัสดี", "ทำอะไรอยู่", "กินอะไรหรือยัง", "นั่งเล่น", "กินแล้ว", "ฝันดี"]
@@ -34,8 +34,8 @@ chatbot.logger.info('Trained database generated successfully!')
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi('YE+eI2SkIoQoQ8VCUqPU5lxvf6fwgf6AWATMMfWc30NWZ79YT2uxTYYhZG3H3cHLVCsIp9zIFqGsYYdGnWMqJwyQEX6q6iY6TqnhqvqkSjek4zyIDNvOjtIisyv5BT95rb9baUrEsx0VTSJAdPJTrAdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('e1eed68e903e9f3a3767e8b338282181')
+line_bot_api = LineBotApi(CAT)
+handler = WebhookHandler(CS)
 
 
 @app.route("/callback", methods=['POST'])
