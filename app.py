@@ -14,10 +14,19 @@ import os.path
 from boto.s3.connection import S3Connection
 s3 = S3Connection(os.environ['CAT'], os.environ['CS'])
 
+bucket = conn.create_bucket('CATCS')
+
+from boto.s3.key import Key
+k = key(bucket)
+k.key = 'CAT'
+m = key(bucket)
+m.key = 'CS'
+
+
 app = Flask(__name__)
 
-line_bot_api = LineBotApi(CAT)
-handler = WebhookHandler(CS)
+line_bot_api = LineBotApi(k.get_contents_as_string())
+handler = WebhookHandler(m.get_contents_as_string())
 
 
 @app.route("/callback", methods=['POST'])
