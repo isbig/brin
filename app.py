@@ -16,8 +16,8 @@ s3 = S3Connection(os.environ['CAT'], os.environ['CS'])
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi(os.environ['CAT'])
-handler = WebhookHandler(os.environ['CS'])
+line_bot_api = LineBotApi(CAT)
+handler = WebhookHandler(CS)
 
 
 @app.route("/callback", methods=['POST'])
