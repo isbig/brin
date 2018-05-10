@@ -14,7 +14,7 @@ import os.path
 from boto.s3.connection import S3Connection
 s3 = S3Connection(os.environ['CAT'], os.environ['CS'])
 
-bucket = s3.create_bucket('CATCS')
+bucket = s3.create_bucket('catcs')
 
 from boto.s3.key import Key
 k = key(bucket)
