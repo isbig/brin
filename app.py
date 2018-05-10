@@ -10,6 +10,9 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+from boto.s3.connection import S3Connection
+s3 = S3Connection(os.environ['CAT'], os.environ['CS'])
+
 app = Flask(__name__)
 
 line_bot_api = LineBotApi(CAT)
