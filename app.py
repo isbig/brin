@@ -10,23 +10,14 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
-import os.path
-from boto.s3.connection import S3Connection
-s3 = S3Connection(os.environ['CAT'], os.environ['CS'])
-
-bucket = s3.create_bucket('catcs')
-
-from boto.s3.key import Key
-k = key(bucket)
-k.key = 'CAT'
-m = key(bucket)
-m.key = 'CS'
-
+import os
+SEC = os.getenv('CAT')
+SEC_CS = os.getenv('CS')
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi(k.get_contents_as_string())
-handler = WebhookHandler(m.get_contents_as_string())
+line_bot_api = LineBotApi(SEC)
+handler = WebhookHandler(SEC_CS)
 
 
 @app.route("/callback", methods=['POST'])
