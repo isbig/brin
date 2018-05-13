@@ -2,7 +2,7 @@
 brin is everyone friend.
 
 # brin qr code
-now you can add brin to your line friend and start to talk with brin._
+now you can add brin to your line friend and start to talk with brin.__
 ![alt text](https://github.com/isbig/brin/blob/master/Picture/brin%20qr%20code.png?raw=true)
 
 # Where is brin come from?
