@@ -42,9 +42,12 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    A = event.message.text
+    B = deepcut.tokenize(A)
+    C = ''.join(B)
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=str(deepcut.tokenize(event.message.text))))
+        TextSendMessage(text=c)
 
 
 if __name__ == "__main__":
