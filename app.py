@@ -44,7 +44,7 @@ def callback():
 def handle_message(event):
     A = event.message.text
     B = deepcut.tokenize(A)
-    C = ''.join(B)
+    C = ' '.join(B)
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=C))
