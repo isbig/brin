@@ -61,6 +61,9 @@ def handle_message(event):
         TextSendMessage(text=event.message.text))
     cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':a})
 
+conn.commit()
+cur.close()
+conn.close()
 
 if __name__ == "__main__":
     app.run()
