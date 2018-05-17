@@ -47,7 +47,7 @@ def handle_message(event):
         TextSendMessage(text=event.message.text))
     
     DATABASE_URL = os.environ['DATABASE_URL']
-
+    
     try:
         conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     except:
@@ -60,7 +60,8 @@ def handle_message(event):
     except psycopg2.ProgrammingError:
         conn.rollback()
     cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':a})
-   
+    conn.commit()
+    
     try:
         cur.execute("CREATE TABLE pocha (kam);")
     except psycopg2.ProgrammingError:
