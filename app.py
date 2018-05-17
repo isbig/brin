@@ -48,11 +48,17 @@ except:
     
 cur = conn.cursor()
 
+try:
+    cur.execute("CREATE TABLE inputmes (word text, time timestamp);")
+except psycopg2.ProgrammingError:
+    conn.rollback()
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
+    cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':text})
 
 
 if __name__ == "__main__":
