@@ -54,36 +54,19 @@ def handle_message(event):
         print("I am unable to connect to the database")
     
     cur = conn.cursor()
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
->>>>>>> parent of 0c5b1c4... Revert "try to use IF NOT EXISTS"
-    cur.execute("CREATE TABLE IF NOT EXISTS inputmes (word text);")
-=======
     try:
         cur.execute("CREATE TABLE inputmes (word text);")
     except psycopg2.ProgrammingError:
         conn.rollback()
-    
->>>>>>> parent of 4e74bda... try to use IF NOT EXISTS
     cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':a})
-    
-<<<<<<< HEAD
-<<<<<<< HEAD
-    cur.execute("CREATE TABLE IF NOT EXISTS pocha (kam);")
-    cur.execute("INSERT INTO pocha SELECT DISTINCT word FROM inputmes;")
-    
-=======
-    cur.execute("CREATE TABLE IF NOT EXISTS pocha (kam) AS SELECT DISTINCT word FROM inputmes;")
->>>>>>> parent of 0c5b1c4... Revert "try to use IF NOT EXISTS"
-=======
+   
     try:
-        cur.execute("CREATE TABLE pocha (kam) AS SELECT DISTINCT word FROM inputmes;")
+        cur.execute("CREATE TABLE pocha (kam);")
     except psycopg2.ProgrammingError:
         conn.rollback()
-
->>>>>>> parent of 4e74bda... try to use IF NOT EXISTS
+    cur.execute("INSERT INTO pocha SELECT DISTINCT word FROM inputmes;")
+        
     conn.commit()
     cur.close()
     conn.close()
