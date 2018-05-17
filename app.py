@@ -61,6 +61,11 @@ def handle_message(event):
         conn.rollback()
     
     cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':a})
+    
+    try:
+        cur.execute("CREATE TABLE pocha (kam text) AS SELECT DISTINCT kam FROM inputmes;")
+    except psycopg2.ProgrammingError:
+        conn.rollback()
 
     conn.commit()
     cur.close()
