@@ -56,11 +56,9 @@ def handle_message(event):
     cur = conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS inputmes (word text);")
     cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':a})
-    conn.commit()
     
     cur.execute("CREATE TABLE IF NOT EXISTS pocha (kam);")
     cur.execute("INSERT INTO pocha SELECT DISTINCT word FROM inputmes;")
-    
     
     conn.commit()
     cur.close()
