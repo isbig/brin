@@ -39,31 +39,32 @@ def callback():
 
 import psycopg2
 
-DATABASE_URL = os.environ['DATABASE_URL']
-
-try:
-    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-except:
-    print("I am unable to connect to the database")
-    
-cur = conn.cursor()
-
-try:
-    cur.execute("CREATE TABLE inputmes (word text, time timestamp);")
-except psycopg2.ProgrammingError:
-    conn.rollback()
-
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     a = event.message.text
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
+    
+    DATABASE_URL = os.environ['DATABASE_URL']
+
+    try:
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    except:
+        print("I am unable to connect to the database")
+    
+    cur = conn.cursor()
+
+    try:
+        cur.execute("CREATE TABLE inputmes (word text, time timestamp);")
+    except psycopg2.ProgrammingError:
+        conn.rollback()
+    
     cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':a})
 
-conn.commit()
-cur.close()
-conn.close()
+    conn.commit()
+    cur.close()
+    conn.close()
 
 if __name__ == "__main__":
     app.run()
