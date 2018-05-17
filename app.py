@@ -55,13 +55,20 @@ def handle_message(event):
     
     cur = conn.cursor()
 
-    cur.execute("CREATE TABLE IF NOT EXISTS inputmes (word text);")
+    try:
+        cur.execute("CREATE TABLE inputmes (word text);")
+    except psycopg2.ProgrammingError:
+        conn.rollback()
+    
     cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':a})
     conn.commit()
     
-    cur.execute("CREATE TABLE IF NOT EXISTS pocha (kam) AS SELECT DISTINCT word FROM inputmes;")
+    try:
+        cur.execute("CREATE TABLE pocha (kam) AS SELECT DISTINCT word FROM inputmes;")
+    except psycopg2.ProgrammingError:
+        conn.rollback()
+
     conn.commit()
-    
     cur.close()
     conn.close()
 
