@@ -56,11 +56,11 @@ def handle_message(event):
     cur = conn.cursor()
 
     try:
-        cur.execute("CREATE TABLE inputmes (word text, time timestamp);")
+        cur.execute("CREATE TABLE inputmes(word text);")
     except psycopg2.ProgrammingError:
         conn.rollback()
     
-    cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':a})
+    cur.execute("INSERT INTO inputmes(word) VALUES (a);")
 
     conn.commit()
     cur.close()
