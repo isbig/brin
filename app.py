@@ -55,10 +55,11 @@ except psycopg2.ProgrammingError:
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    a = event.message.text
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
-    cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':text})
+    cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':a})
 
 
 if __name__ == "__main__":
