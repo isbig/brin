@@ -37,6 +37,12 @@ def callback():
 
     return 'OK'
 
+import psycopg2
+
+DATABASE_URL = os.environ['DATABASE_URL']
+
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+cur = conn.cursor()
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
