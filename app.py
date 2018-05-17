@@ -44,7 +44,7 @@ DATABASE_URL = os.environ['DATABASE_URL']
 try:
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 except:
-    print "I am unable to connect to the database"
+    print("I am unable to connect to the database")
     
 cur = conn.cursor()
 
