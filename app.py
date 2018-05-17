@@ -67,7 +67,10 @@ def handle_message(event):
     except psycopg2.ProgrammingError:
         conn.rollback()
     cur.execute("INSERT INTO pocha SELECT DISTINCT word FROM inputmes;")
-        
+    conn.commit()
+    
+    cur.execute("DELETE FROM pocha a USING (SELECT MIN(ctid) as ctid, kam FROM pocha GROUP BY kam HAVING COUNT(*) > 1) b WHERE a.kam = b.kam AND a.ctid <> b.ctid;")
+    
     conn.commit()
     cur.close()
     conn.close()
