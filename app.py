@@ -64,7 +64,7 @@ def handle_message(event):
     conn.commit()
     
     try:
-        cur.execute("CREATE TABLE pocha (kam text) AS SELECT DISTINCT word FROM inputmes;")
+        cur.execute("CREATE TABLE pocha (kam) AS SELECT DISTINCT word FROM inputmes;")
     except psycopg2.ProgrammingError:
         conn.rollback()
 
