@@ -10,6 +10,8 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+import random
+
 import os
 SEC = os.getenv('CAT')
 SEC_CS = os.getenv('CS')
@@ -93,9 +95,11 @@ def handle_message(event):
         m = cur.fetchall()
         
         for rows in m:
+            n = random.choice(range(10))
+            m = rows[n]
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=rows))
+                TextSendMessage(text=m))
         
     inputmes()
     pocha()
