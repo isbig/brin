@@ -101,7 +101,8 @@ def handle_message(event):
     inputmes()
     pocha()
     s = out()
-    i = random.choice(s)
+    y = s.tolist()
+    i = random.choice(y)
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text="คำว่า ความ" + i + " แปลกหรือไม่"))
