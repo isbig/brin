@@ -10,4 +10,5 @@ Werkzeug==0.12.2
 line-bot-sdk==1.5.0
 chatterbot
 psycopg2
-boto
+deepcut
+tensorflow
