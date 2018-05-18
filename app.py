@@ -101,7 +101,7 @@ def handle_message(event):
     pocha()
     s = out()
     for x in s:
-        t = [].append(x) 
+        t = [].append(str(x)) 
     i = random.choice(t)
     line_bot_api.reply_message(
         event.reply_token,
