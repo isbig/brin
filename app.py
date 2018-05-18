@@ -93,8 +93,9 @@ def handle_message(event):
         
         cur.execute("SELECT kam FROM pocha WHERE prapet IS NULL;")
         m = cur.fetchall()
-        for x in random.shuffle(m):
-            b = x    
+        b = []
+        for x in m:
+            b.append(x)
         conn.commit()
         cur.close()
         conn.close()
@@ -104,10 +105,10 @@ def handle_message(event):
     inputmes()
     pocha()
     s = out()
-    i = s
+    i = random.choice(s)
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="คำว่า ความ" + i + " แปลกหรือไม่"))
+        TextSendMessage(text="คำว่า ความ" + i[1:-1] + " แปลกหรือไม่"))
     
     
 if __name__ == "__main__":
