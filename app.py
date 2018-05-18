@@ -63,7 +63,7 @@ def handle_message(event):
     conn.commit()
     
     try:
-        cur.execute("CREATE TABLE pocha (kam);")
+        cur.execute("CREATE TABLE pocha (kam text, prapet INT);")
     except psycopg2.ProgrammingError:
         conn.rollback()
     cur.execute("INSERT INTO pocha SELECT DISTINCT word FROM inputmes;")
@@ -71,8 +71,12 @@ def handle_message(event):
     
     #delete duplicate record using code from https://stackoverflow.com/questions/6583916/delete-duplicate-records-in-postgresql
     cur.execute("DELETE FROM pocha a USING (SELECT MIN(ctid) as ctid, kam FROM pocha GROUP BY kam HAVING COUNT(*) > 1) b WHERE a.kam = b.kam AND a.ctid <> b.ctid;")
-    
     conn.commit()
+    
+    m = cur.fetchall()
+    for rows in m:
+        print(rows)
+        
     cur.close()
     conn.close()
 
