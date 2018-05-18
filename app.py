@@ -82,6 +82,21 @@ def handle_message(event):
         cur.close()
         conn.close()
         
+    def out():
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+        
+        cur.execute("SELECT kam FROM pocha WHERE prapet IS NULL;")
+        m = cur.fetchall
+        
+        for rows in m:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=rows))
+        
     inputmes()
     pocha()
 
