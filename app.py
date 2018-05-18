@@ -17,6 +17,8 @@ import psycopg2
 SEC = os.getenv('CAT')
 SEC_CS = os.getenv('CS')
 
+import deepcut
+
 app = Flask(__name__)
 
 line_bot_api = LineBotApi(SEC)
@@ -62,15 +64,17 @@ def handle_message(event):
         conn.close()
     
     def pocha():
+        B = deepcut.tokenize(a)
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
             print("I am unable to connect to the database")
         cur = conn.cursor()
-
+    
         cur.execute("CREATE TABLE IF NOT EXISTS pocha (kam text, prapet INT);")
-
-        cur.execute("INSERT INTO pocha SELECT DISTINCT word FROM inputmes;")
+      
+        for C in B:
+            cur.execute("INSERT INTO pocha VALUES (%(str)s);", {'str':C})
         conn.commit()
     
         #delete duplicate record using code from https://stackoverflow.com/questions/6583916/delete-duplicate-records-in-postgresql
