@@ -93,7 +93,7 @@ def handle_message(event):
         
         cur.execute("SELECT kam FROM pocha WHERE prapet IS NULL;")
         m = cur.fetchall()
-        for x in m.shuffle():
+        for x in random.shuffle(m):
             b = x    
         conn.commit()
         cur.close()
