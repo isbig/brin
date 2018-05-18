@@ -95,11 +95,10 @@ def handle_message(event):
         m = cur.fetchall()
         
         for rows in m:
-            n = random.choice(range(10))
-            m = rows[n]
+            n = random.choice(rows)
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=m))
+                TextSendMessage(text=n))
         
     inputmes()
     pocha()
