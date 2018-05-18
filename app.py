@@ -69,6 +69,7 @@ def handle_message(event):
     cur.execute("INSERT INTO pocha SELECT DISTINCT word FROM inputmes;")
     conn.commit()
     
+    #delete duplicate record using code from https://stackoverflow.com/questions/6583916/delete-duplicate-records-in-postgresql
     cur.execute("DELETE FROM pocha a USING (SELECT MIN(ctid) as ctid, kam FROM pocha GROUP BY kam HAVING COUNT(*) > 1) b WHERE a.kam = b.kam AND a.ctid <> b.ctid;")
     
     conn.commit()
