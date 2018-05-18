@@ -93,13 +93,16 @@ def handle_message(event):
         
         for rows in m:
             n = random.choice(rows)
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text=str(n)))
+            
+        return n
+
         
     inputmes()
     pocha()
-    out()
-
+    f = out()
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=str(f)))
+    
 if __name__ == "__main__":
     app.run()
