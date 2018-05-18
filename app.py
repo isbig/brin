@@ -96,7 +96,7 @@ def handle_message(event):
         b = []
         for x in m:
             a = str(x)
-            b = b.append(a)
+            b.append(a)
         conn.commit()
         cur.close()
         conn.close()
