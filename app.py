@@ -90,7 +90,7 @@ def handle_message(event):
         cur = conn.cursor()
         
         cur.execute("SELECT kam FROM pocha WHERE prapet IS NULL;")
-        m = cur.fetchall
+        m = cur.fetchall()
         
         for rows in m:
             line_bot_api.reply_message(
