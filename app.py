@@ -48,20 +48,15 @@ def handle_message(event):
     
     DATABASE_URL = os.environ['DATABASE_URL']
     
-    def connect():
+    def inputmes():
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
             print("I am unable to connect to the database")
-
         cur = conn.cursor()
-    
-    def inputmes():
-        connect()
-        try:
-            cur.execute("CREATE TABLE inputmes (word text);")
-        except psycopg2.ProgrammingError:
-            conn.rollback()
+        
+        cur.execute("CREATE TABLE IF NOT EXISTS inputmes (word text);")
+
         cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':a})
         conn.commit()
         
@@ -69,11 +64,14 @@ def handle_message(event):
         conn.close()
     
     def pocha():
-        connect() 
         try:
-            cur.execute("CREATE TABLE pocha (kam text, prapet INT);")
-        except psycopg2.ProgrammingError:
-            conn.rollback()
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+
+        cur.execute("CREATE TABLE IF NOT EXISTS pocha (kam text, prapet INT);")
+
         cur.execute("INSERT INTO pocha SELECT DISTINCT word FROM inputmes;")
         conn.commit()
     
@@ -83,6 +81,9 @@ def handle_message(event):
     
         cur.close()
         conn.close()
+        
+    inputmes()
+    pocha()
 
 if __name__ == "__main__":
     app.run()
