@@ -11,8 +11,9 @@ from linebot.models import (
 )
 
 import random
-
 import os
+import psycopg2
+
 SEC = os.getenv('CAT')
 SEC_CS = os.getenv('CS')
 
@@ -39,12 +40,10 @@ def callback():
 
     return 'OK'
 
-import psycopg2
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     a = event.message.text
-    
     DATABASE_URL = os.environ['DATABASE_URL']
     
     def inputmes():
