@@ -99,6 +99,7 @@ def handle_message(event):
         
     inputmes()
     pocha()
+    out()
 
 if __name__ == "__main__":
     app.run()
