@@ -98,7 +98,7 @@ def handle_message(event):
             n = random.choice(rows)
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=n))
+                TextSendMessage(text=str(n)))
         
     inputmes()
     pocha()
