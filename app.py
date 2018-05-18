@@ -48,14 +48,16 @@ def handle_message(event):
     
     DATABASE_URL = os.environ['DATABASE_URL']
     
-    def inputmes():
+    def connect():
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
             print("I am unable to connect to the database")
 
         cur = conn.cursor()
-        
+    
+    def inputmes():
+        connect()
         try:
             cur.execute("CREATE TABLE inputmes (word text);")
         except psycopg2.ProgrammingError:
@@ -67,13 +69,7 @@ def handle_message(event):
         conn.close()
     
     def pocha():
-        try:
-            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-        except:
-            print("I am unable to connect to the database")
-
-        cur = conn.cursor()
-        
+        connect() 
         try:
             cur.execute("CREATE TABLE pocha (kam text, prapet INT);")
         except psycopg2.ProgrammingError:
