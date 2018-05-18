@@ -101,7 +101,7 @@ def handle_message(event):
     f = out()
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=f))
+        TextSendMessage(text="คำว่า ความ" +f " แปลกหรือไม่"))
     
 if __name__ == "__main__":
     app.run()
