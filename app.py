@@ -100,11 +100,11 @@ def handle_message(event):
     inputmes()
     pocha()
     s = out()
-    f = [ x for x in s ]
+    f = [ str(x) for x in s ]
     i = random.choice(f)
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="คำว่า ความ" + str(i) + " แปลกหรือไม่"))
+        TextSendMessage(text="คำว่า ความ" + i + " แปลกหรือไม่"))
     
     
 if __name__ == "__main__":
