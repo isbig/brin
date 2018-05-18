@@ -93,8 +93,8 @@ def handle_message(event):
         
         cur.execute("SELECT kam FROM pocha WHERE prapet IS NULL;")
         m = cur.fetchall()
-        t = [str(x) for x in m]
-        return t
+        n = m.tolist()
+        return n
 
         
     inputmes()
