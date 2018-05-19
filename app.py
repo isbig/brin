@@ -49,6 +49,7 @@ def handle_message(event):
     DATABASE_URL = os.environ['DATABASE_URL']
     
     def inputmes():
+    “””นำข้อความที่คู่สนทนาของบรินพิมพ์มาใส่ไว้ในฐานข้อมูล ในตารางที่ชื่อว่า inputmes”””
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
@@ -64,6 +65,7 @@ def handle_message(event):
         conn.close()
     
     def pocha():
+    “””นำข้อความที่คู่สนทนาของบรินมาแยกเป็นคำ และเก็บแต่ละคำไว้ในตาราง pocha จากนั้นลบคำที่ซ้ำกันออกจากตาราง”””
         B = deepcut.tokenize(a)
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -85,6 +87,7 @@ def handle_message(event):
         conn.close()
         
     def out():
+    “””นำคำในตาราง pocha มาเป็นวัตถุดิบในการตอบของบริน”””
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
@@ -101,7 +104,7 @@ def handle_message(event):
         conn.close()
         return b
 
-        
+    
     inputmes()
     pocha()
     s = out()
