@@ -126,21 +126,15 @@ def handle_message(event):
         
     inputmes()
     pocha()
-    I = deepcut.tokenize(a)
-    def vicr():
-        for x in I:
-            if x in kamout(1):
-                n = "คุณกำลังพูดถึง" + I[I.index(x)]
-        return n
+
+    def vicr(U, p)
+        s = deepcut.tokenize(U)
+        for x in s:
+            T = [x for x in kamout(p)]
+        return T
     
-    def vi():
-        for x in I:
-            if x in kamout(3):
-                n = "คุณกำลังพูดถึง การ" + I[I.index(x)] + " หรือความ" + I[I.index(x)]
-        return n
-    i = vicr()
-    t = vi()
-    
+    v = vicr(a, 1)
+    w = vicr(a, 3)
     
     #i = ran(kamout(1))
     #t = ran(kamout(2))
@@ -148,7 +142,7 @@ def handle_message(event):
     #k = ran(kamout(4))
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = i + t))
+        TextSendMessage(text = "คุณกำลังพูดถึง " + v[0] "และ การ" + w[0]))
     
     
 if __name__ == "__main__":
