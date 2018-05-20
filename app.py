@@ -126,13 +126,19 @@ def handle_message(event):
         
     inputmes()
     pocha()
-    i = ran(kamout(1))
-    t = ran(kamout(2))
-    w = ran(kamout(3))
-    k = ran(kamout(4))
+    I = deepcut.tokenize(a)
+    for x in I:
+        if x in kamout(1):
+            i = "คุณกำลังพูดถึง" + I[len(x)]
+        if x in kamout(3): 
+            t = "คุณกำลังพูดถึง การ" + I[len(x)] + " หรือความ" + I[len(x)]
+    #i = ran(kamout(1))
+    #t = ran(kamout(2))
+    #w = ran(kamout(3))
+    #k = ran(kamout(4))
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="ประโยค " + i + t + w + k + " แปลกหรือไม่"))
+        TextSendMessage(text = i + t))
     
     
 if __name__ == "__main__":
