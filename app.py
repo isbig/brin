@@ -73,11 +73,11 @@ def handle_message(event):
         #from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
         cur.execute("SELECT word FROM inputmes ORDER BY time DESC LIMIT 1;")
         m = cur.fetchall()
-        
+        n = str(m)[3:-4]
         conn.commit()
         cur.close()
         conn.close()
-        return m
+        return n
         
     def pocha():
         B = deepcut.tokenize(a)
@@ -143,22 +143,26 @@ def handle_message(event):
     inputmes()
     pocha()
     
-    s = deepcut.tokenize(a)
+
+    
+
+    z = usinputcur()
+    
+    s = deepcut.tokenize(z)
     def vicr(p):
         for x in s:
             T = [x for x in kamout(p)]
         return T
-    
     v = vicr(1)
     w = vicr(3)
-    z = str(usinputcur())
+    
     #i = ran(kamout(1))
     #t = ran(kamout(2))
     #w = ran(kamout(3))
     #k = ran(kamout(4))
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = "คุณกำลังพูดถึง " + v[0] + "และ การ" + w[0] + z))
+        TextSendMessage(text = "คุณกำลังพูดถึง " + v[0] + " และ การ" + w[0] + " ในประโยค " + z))
     
     
 if __name__ == "__main__":
