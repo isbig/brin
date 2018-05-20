@@ -130,7 +130,7 @@ def handle_message(event):
     def vicr():
         for x in I:
             if x in kamout(1):
-                n = "คุณกำลังพูดถึง" + I[len(x)]
+                n = "คุณกำลังพูดถึง" + I[I.index(x)]
         return n
     
     def vi():
@@ -140,6 +140,7 @@ def handle_message(event):
         return n
     i = vicr()
     t = vi()
+    
     
     #i = ran(kamout(1))
     #t = ran(kamout(2))
