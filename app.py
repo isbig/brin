@@ -157,8 +157,6 @@ def handle_message(event):
         m = random.choice(t)
     except IndexError:
         pass
-    
-    def song(s):
 
     #i = ran(kamout(1))
     #t = ran(kamout(2))
