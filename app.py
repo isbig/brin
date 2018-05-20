@@ -132,7 +132,7 @@ def handle_message(event):
     k = ran(kamout(4))
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="ประโยค" + i + t + w + k + " แปลกหรือไม่"))
+        TextSendMessage(text="ประโยค " + i + t + w + k + " แปลกหรือไม่"))
     
     
 if __name__ == "__main__":
