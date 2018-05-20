@@ -96,6 +96,7 @@ def handle_message(event):
         b = []
         for x in m:
             b.append(x)
+        c = [str(x)[2:-3] for x in b]
         conn.commit()
         cur.close()
         conn.close()
@@ -108,7 +109,7 @@ def handle_message(event):
     i = random.choice(s)
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="คำว่า ความ" + str(i)[2:-3] + " แปลกหรือไม่"))
+        TextSendMessage(text="คำว่า ความ" + i + " แปลกหรือไม่"))
     
     
 if __name__ == "__main__":
