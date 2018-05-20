@@ -57,7 +57,7 @@ def handle_message(event):
         
         cur.execute("CREATE TABLE IF NOT EXISTS inputmes (word text, time TIMESTAMP NOT NULL);")
 
-        cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':a})
+        cur.execute("INSERT INTO inputmes (word, time) VALUES (%(str)s, NOW());", {'str':a})
         conn.commit()
         
         cur.close()
