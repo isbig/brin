@@ -62,7 +62,23 @@ def handle_message(event):
         
         cur.close()
         conn.close()
-    
+        
+    def usinputcur():
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+        
+        #from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
+        cur.execute("SELECT word FROM inputmes ORDER BY time DESC LIMIT 1;")
+        m = cur.fetchall()
+        
+        conn.commit()
+        cur.close()
+        conn.close()
+        return m
+        
     def pocha():
         B = deepcut.tokenize(a)
         try:
@@ -135,14 +151,14 @@ def handle_message(event):
     
     v = vicr(1)
     w = vicr(3)
-    
+    z = str(usinputcur())
     #i = ran(kamout(1))
     #t = ran(kamout(2))
     #w = ran(kamout(3))
     #k = ran(kamout(4))
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = "คุณกำลังพูดถึง " + v[0] + "และ การ" + w[0]))
+        TextSendMessage(text = "คุณกำลังพูดถึง " + v[0] + "และ การ" + w[0] + z))
     
     
 if __name__ == "__main__":
