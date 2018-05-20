@@ -155,22 +155,23 @@ def handle_message(event):
    
 
     
-    if t == []:
-        pass
-    elif t != []:
-        try:
-            m = random.choice(t)
-        except IndexError:
-            pass
-    
-    
+    def kwam():
+        if t == []:
+            return "ความรัก"
+        elif t != []:
+            try:
+                m = random.choice(t)
+            except IndexError:
+                pass
+            return m
+    q = kwam()
     #i = ran(kamout(1))
     #t = ran(kamout(2))
     #w = ran(kamout(3))
     #k = ran(kamout(4))
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = m + "เป็นคำประเภทใด"))
+        TextSendMessage(text = q + "เป็นคำประเภทใด"))
     
     
 if __name__ == "__main__":
