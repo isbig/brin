@@ -109,7 +109,7 @@ def handle_message(event):
             print("I am unable to connect to the database")
         cur = conn.cursor()
         
-        cur.execute("SELECT kam FROM pocha WHERE prapet = %(lektan)d;" {'lektan':L})
+        cur.execute("SELECT kam FROM pocha WHERE prapet = %(lektan)s;" {'lektan':L})
         m = cur.fetchall()
         b = []
         for x in m:
