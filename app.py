@@ -127,7 +127,7 @@ def handle_message(event):
     inputmes()
     pocha()
 
-    def vicr(U, p)
+    def vicr(U, p):
         s = deepcut.tokenize(U)
         for x in s:
             T = [x for x in kamout(p)]
