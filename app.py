@@ -102,10 +102,27 @@ def handle_message(event):
         conn.close()
         return c
 
+    def oneout():
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+        
+        cur.execute("SELECT kam FROM pocha WHERE prapet IS 1;")
+        m = cur.fetchall()
+        b = []
+        for x in m:
+            b.append(x)
+        c = [str(x)[2:-3] for x in b]
+        conn.commit()
+        cur.close()
+        conn.close()
+        return c
     
     inputmes()
     pocha()
-    s = out()
+    s = oneout()
     i = random.choice(s)
     line_bot_api.reply_message(
         event.reply_token,
