@@ -120,13 +120,19 @@ def handle_message(event):
         conn.close()
         return c
     
+    def ran(S):
+        b = random.choice(S)
+        return b
+        
     inputmes()
     pocha()
-    s = kamout(1)
-    i = random.choice(s)
+    i = ran(kamout(1))
+    t = ran(kamout(2))
+    w = ran(kamout(3))
+    k = ran(kamout(4))
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="คำว่า ความ" + i + " แปลกหรือไม่"))
+        TextSendMessage(text="ประโยค" + i + t + w + k + " แปลกหรือไม่"))
     
     
 if __name__ == "__main__":
