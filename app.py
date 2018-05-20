@@ -156,7 +156,7 @@ def handle_message(event):
 
     
     if t == []:
-        return false
+        pass
     elif t != []:
         try:
             m = random.choice(t)
