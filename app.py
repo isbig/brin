@@ -10,7 +10,10 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+import random
 import os
+import psycopg2
+
 SEC = os.getenv('CAT')
 SEC_CS = os.getenv('CS')
 
@@ -42,13 +45,74 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    A = event.message.text
-    B = deepcut.tokenize(A)
-    C = ' '.join(B)
+    a = event.message.text
+    DATABASE_URL = os.environ['DATABASE_URL']
+    
+    def inputmes():
+    “””นำข้อความที่คู่สนทนาของบรินพิมพ์มาใส่ไว้ในฐานข้อมูล ในตารางที่ชื่อว่า inputmes”””
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+        
+        cur.execute("CREATE TABLE IF NOT EXISTS inputmes (word text);")
+
+        cur.execute("INSERT INTO inputmes VALUES (%(str)s);", {'str':a})
+        conn.commit()
+        
+        cur.close()
+        conn.close()
+    
+    def pocha():
+    “””นำข้อความที่คู่สนทนาของบรินมาแยกเป็นคำ และเก็บแต่ละคำไว้ในตาราง pocha จากนั้นลบคำที่ซ้ำกันออกจากตาราง”””
+        B = deepcut.tokenize(a)
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+    
+        cur.execute("CREATE TABLE IF NOT EXISTS pocha (kam text, prapet INT);")
+      
+        for C in B:
+            cur.execute("INSERT INTO pocha VALUES (%(str)s);", {'str':C})
+        conn.commit()
+    
+        #delete duplicate record using code from https://stackoverflow.com/questions/6583916/delete-duplicate-records-in-postgresql
+        cur.execute("DELETE FROM pocha a USING (SELECT MIN(ctid) as ctid, kam FROM pocha GROUP BY kam HAVING COUNT(*) > 1) b WHERE a.kam = b.kam AND a.ctid <> b.ctid;")
+        conn.commit()
+    
+        cur.close()
+        conn.close()
+        
+    def out():
+    “””นำคำในตาราง pocha มาเป็นวัตถุดิบในการตอบของบริน”””
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+        
+        cur.execute("SELECT kam FROM pocha WHERE prapet IS NULL;")
+        m = cur.fetchall()
+        b = []
+        for x in m:
+            b.append(x)
+        conn.commit()
+        cur.close()
+        conn.close()
+        return b
+
+    
+    inputmes()
+    pocha()
+    s = out()
+    i = random.choice(s)
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=C))
-
-
+        TextSendMessage(text="คำว่า ความ" + str(i)[2:-3] + " แปลกหรือไม่"))
+    
+    
 if __name__ == "__main__":
     app.run()
