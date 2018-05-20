@@ -142,7 +142,7 @@ def handle_message(event):
     #k = ran(kamout(4))
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = "คุณกำลังพูดถึง " + v[0] "และ การ" + w[0]))
+        TextSendMessage(text = "คุณกำลังพูดถึง " + v[0] + "และ การ" + w[0]))
     
     
 if __name__ == "__main__":
