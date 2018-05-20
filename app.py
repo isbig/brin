@@ -127,11 +127,20 @@ def handle_message(event):
     inputmes()
     pocha()
     I = deepcut.tokenize(a)
-    for x in I:
-        if x in kamout(1):
-            i = "คุณกำลังพูดถึง" + I[len(x)]
-        if x in kamout(3): 
-            t = "คุณกำลังพูดถึง การ" + I[len(x)] + " หรือความ" + I[len(x)]
+    def vicr():
+        for x in I:
+            if x in kamout(1):
+                i = "คุณกำลังพูดถึง" + I[len(x)]
+        return i
+    
+    def vi():
+        for x in I:
+            if x in kamout(3):
+                i = "คุณกำลังพูดถึง การ" + I[len(x)] + " หรือความ" + I[len(x)]
+        return i
+    i = vicr()
+    t = vi()
+    
     #i = ran(kamout(1))
     #t = ran(kamout(2))
     #w = ran(kamout(3))
