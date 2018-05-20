@@ -147,10 +147,17 @@ def handle_message(event):
     s = deepcut.tokenize(z)
 
     def vicr(P, G):
-        v = [x for x in P if x in n]
+        v = [x for x in P if x in G]
         return v
     
     t = vicr(s, out())
+    e = vicr(s, kamout(1))
+    
+    try:
+        m = random.choice(t)
+    except IndexError:
+        pass
+
  
     #i = ran(kamout(1))
     #t = ran(kamout(2))
@@ -158,7 +165,7 @@ def handle_message(event):
     #k = ran(kamout(4))
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = t))
+        TextSendMessage(text = m + "เป็นคำประเภทใด"))
     
     
 if __name__ == "__main__":
