@@ -142,23 +142,23 @@ def handle_message(event):
         
     inputmes()
     pocha()
-    
-
-    
-
+   
     z = usinputcur()
     s = deepcut.tokenize(z)
+
+    def vicr(P, G):
+        v = [x for x in P if x in n]
+        return v
     
-    v = [x for x in s if x in kamout(1)]
-    w = [x for x in s if x in kamout(3)]
-    
+    t = vicr(s, out())
+ 
     #i = ran(kamout(1))
     #t = ran(kamout(2))
     #w = ran(kamout(3))
     #k = ran(kamout(4))
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = "คุณกำลังพูดถึง " + v[0] + " และ การ" + w[0] + " ในประโยค " + z))
+        TextSendMessage(text = t))
     
     
 if __name__ == "__main__":
