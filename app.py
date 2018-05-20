@@ -153,8 +153,10 @@ def handle_message(event):
     t = vicr(s, out())
     e = vicr(s, kamout(1))
    
-    m = random.choice(t)
-
+    try:
+        m = random.choice(t)
+    except IndexError:
+        pass
     
     def song(s):
 
