@@ -136,7 +136,7 @@ def handle_message(event):
     def vi():
         for x in I:
             if x in kamout(3):
-                i = "คุณกำลังพูดถึง การ" + I[len(x)] + " หรือความ" + I[len(x)]
+                i = "คุณกำลังพูดถึง การ" + I[I.index(x)] + " หรือความ" + I[I.index(x)]
         return i
     i = vicr()
     t = vi()
