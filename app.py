@@ -147,14 +147,10 @@ def handle_message(event):
     
 
     z = usinputcur()
-    
     s = deepcut.tokenize(z)
-    def vicr(p):
-        for x in s:
-            T = [x for x in kamout(p)]
-        return T
-    v = vicr(1)
-    w = vicr(3)
+    
+    v = [x for x in s if x in kamout(1)]
+    w = [x for x in s if x in kamout(3)]
     
     #i = ran(kamout(1))
     #t = ran(kamout(2))
