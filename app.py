@@ -100,7 +100,7 @@ def handle_message(event):
         conn.commit()
         cur.close()
         conn.close()
-        return b
+        return c
 
     
     inputmes()
