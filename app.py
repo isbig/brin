@@ -200,8 +200,6 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text = q)
     
-
-    
-    
+        
 if __name__ == "__main__":
     app.run()
