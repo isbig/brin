@@ -200,7 +200,7 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text = q)
     
-    inputoutmes(q)
+    inputoutmes('ทดสอบ')
 
     
     
