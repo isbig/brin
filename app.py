@@ -170,7 +170,22 @@ def handle_message(event):
     def ran(S):
         b = random.choice(S)
         return b
-        
+    
+    def bogprapet(i,r):
+        B = deepcut.tokenize(a)
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+      
+        cur.execute("INSERT INTO pocha (prapet) VALUES (%(int)s) WHERE kam = (%(str)s);", {'str':i, 'int':r})
+        conn.commit()
+    
+        cur.close()
+        conn.close()
+    
+    
     inputmes()
     pocha()
    
@@ -221,15 +236,55 @@ def handle_message(event):
         kamkorn = usinputoutcur()
         yol = deepcut.tokenize(kamkorn)
         i = yol[0]
-        r = "1"
-        rat = i + " เป็นคำประเภท " + r 
-        if b == rat:
+        r = [x for x in range(10)]
+        rat1 = i + " เป็นคำประเภท " + str(r[1])
+        rat2 = i + " เป็นคำประเภท " + str(r[2])
+        rat3 = i + " เป็นคำประเภท " + str(r[3])
+        rat4 = i + " เป็นคำประเภท " + str(r[4])
+        rat5 = i + " เป็นคำประเภท " + str(r[5])
+        rat6 = i + " เป็นคำประเภท " + str(r[6])
+        rat7 = i + " เป็นคำประเภท " + str(r[7])
+        rat8 = i + " เป็นคำประเภท " + str(r[8])
+        rat9 = i + " เป็นคำประเภท " + str(r[9])
+        if b == rat1:
             # เก็บค่า r ให้ i ในตาราง pocha
-            n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + r
+            bogprapet(i,r[1])
+            n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + str(r[1])
             return n
-        elif b != rat:
+        elif b == rat2:
+            bogprapet(i,r[2])
+            n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + str(r[2])
+            return n
+        elif b == rat3:
+            bogprapet(i,r[3])
+            n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + str(r[3])
+            return n
+        elif b == rat4:
+            bogprapet(i,r[4])
+            n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + str(r[4])
+            return n
+        elif b == rat5:
+            bogprapet(i,r[5])
+            n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + str(r[5])
+            return n
+        elif b == rat6:
+            bogprapet(i,r[6])
+            n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + str(r[6])
+            return n
+        elif b == rat7:
+            bogprapet(i,r[7])
+            n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + str(r[7])
+            return n
+        elif b == rat8:
+            bogprapet(i,r[8])
+            n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + str(r[8])
+            return n
+        elif b == rat9:
+            bogprapet(i,r[9])
+            n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + str(r[9])
+            return n
+        else:
             return kwam()
-            
     q = first()
 
     line_bot_api.reply_message(
