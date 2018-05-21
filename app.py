@@ -151,7 +151,7 @@ def handle_message(event):
         cur.close()
         conn.close()
         
-     def usinputoutcur():
+    def usinputoutcur():
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
