@@ -135,6 +135,21 @@ def handle_message(event):
         cur.close()
         conn.close()
         return c
+        
+    def inputoutmes():
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+        
+        cur.execute("CREATE TABLE IF NOT EXISTS inputoutmes (word text, time TIMESTAMP NOT NULL);")
+
+        cur.execute("INSERT INTO inputoutmes (word, time) VALUES (%(str)s, NOW());", {'str':q})
+        conn.commit()
+        
+        cur.close()
+        conn.close()
     
     def ran(S):
         b = random.choice(S)
@@ -152,12 +167,21 @@ def handle_message(event):
     
     t = vicr(s, out())
     e = vicr(s, kamout(1))
-   
+    c = vicr(s, kamout(3))    
 
+    def pood():
+        if e == [] and c != []:
+            u = "ใคร" + str(c)
+            return u
+        if e != [] and c == []:
+            w = str(e) + "ทำอะไร"
+            return w
+            
     
     def kwam():
         if t == []:
-            return "ความรัก"
+            a = pood()
+            return a
         elif t != []:
             try:
                 m = random.choice(t) + " เป็นคำประเภทใด"
@@ -170,20 +194,9 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text = q)
     
-    def inputoutmes():
-        try:
-            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-        except:
-            print("I am unable to connect to the database")
-        cur = conn.cursor()
-        
-        cur.execute("CREATE TABLE IF NOT EXISTS inputoutmes (word text, time TIMESTAMP NOT NULL);")
+    inputoutmes()
 
-        cur.execute("INSERT INTO inputoutmes (word, time) VALUES (%(str)s, NOW());", {'str':q})
-        conn.commit()
-        
-        cur.close()
-        conn.close()
+    
     
 if __name__ == "__main__":
     app.run()
