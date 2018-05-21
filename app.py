@@ -218,14 +218,15 @@ def handle_message(event):
     # มีประโยคที่รู้จักหรือไม่
     def first():
         #i เปน q แรก    
+        b = usinputcur()
         i = yol[0]
         rat = i + "เป็นคำประเภทหนึ่ง"
-        if z == "น่ารัก":
+        if b == "น่ารัก":
             # เก็บค่า r ให้ i ในตาราง pocha
             n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + 1
             return n
-        elif z != "น่ารัก":
-            return z
+        elif b != "น่ารัก":
+            return b
             
     q = first()
 
