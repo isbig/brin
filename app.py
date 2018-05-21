@@ -159,7 +159,7 @@ def handle_message(event):
         cur = conn.cursor()
         
         #from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
-        cur.execute("SELECT word FROM inputoutcur ORDER BY time DESC LIMIT 1;")
+        cur.execute("SELECT word FROM inputoutmes ORDER BY time DESC LIMIT 1;")
         m = cur.fetchall()
         n = str(m)[3:-4]
         conn.commit()
