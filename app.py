@@ -136,7 +136,7 @@ def handle_message(event):
         conn.close()
         return c
         
-    def inputoutmes():
+    def inputoutmes(q):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
@@ -194,7 +194,7 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text = q)
     
-    inputoutmes()
+    inputoutmes(q)
 
     
     
