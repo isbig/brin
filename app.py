@@ -213,11 +213,12 @@ def handle_message(event):
             return m
     
     kamkorn = usinputoutcur()
+    yol = deepcut.tokenize(kamkorn)
     
     # มีประโยคที่รู้จักหรือไม่
     def first():
         #i เปน q แรก    
-        i = kamkorn[0]
+        i = yol[0]
         rat = i + " เป็นคำประเภทหนึ่ง"
         if z == rat:
             # เก็บค่า r ให้ i ในตาราง pocha
