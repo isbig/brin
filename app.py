@@ -175,7 +175,7 @@ def handle_message(event):
             u = "อะไรหรือใครที่" + ''.join(z) + ''.join(c)
             return u
         if e != [] and c == []:
-            w = c[0] + "ทำอะไร"
+            w = e[0] + "ทำอะไร"
             return w
         if e == [] and c == []:
             q = "ใครทำอะไร"
