@@ -219,13 +219,13 @@ def handle_message(event):
     def first():
         #i เปน q แรก    
         i = yol[0]
-        rat = i + " เป็นคำประเภทหนึ่ง"
+        rat = i + "เป็นคำประเภทหนึ่ง"
         if z == rat:
             # เก็บค่า r ให้ i ในตาราง pocha
             n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + 1
             return n
         elif z != rat:
-            return kwam()
+            return rat
             
     q = first()
 
