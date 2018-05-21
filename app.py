@@ -150,6 +150,22 @@ def handle_message(event):
         
         cur.close()
         conn.close()
+        
+     def usinputoutcur():
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+        
+        #from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
+        cur.execute("SELECT word FROM inputoutcur ORDER BY time DESC LIMIT 1;")
+        m = cur.fetchall()
+        n = str(m)[3:-4]
+        conn.commit()
+        cur.close()
+        conn.close()
+        return n
     
     def ran(S):
         b = random.choice(S)
@@ -184,23 +200,31 @@ def handle_message(event):
             y = "แล้วยังไงต่อ"
             return y
             
-    
+    # มีคำที่ไม่รู้ประเภทหรือไม่ ถ้าไม่มี ถ้ามีให้ถามว่าเป็นคำประเภทใด
     def kwam():
         if t == []:
-            if z == i + " เป็นคำประเภท " + 1:
-                # เก็บค่า r ให้ i ในตาราง pocha
-                n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + 1
-                return n
-            elif z != i + " เป็นคำประเภท " + 1:
-                ka = pood()
-                return ka
+            ka = pood()
+            return ka
         elif t != []:
             try:
                 m = random.choice(t) + " เป็นคำประเภทใด"
             except IndexError:
                 pass
             return m
-    q = kwam()
+    
+    kamkorn = usinputoutcur()
+    
+    # มีประโยคที่รู้จักหรือไม่
+    def first():
+        i เปน q แรก    
+        if z == kamkorn[0] + " เป็นคำประเภท 1":
+            # เก็บค่า r ให้ i ในตาราง pocha
+            n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + 1
+            return n
+        elif:
+            return kwam()
+            
+    q = first()
 
     line_bot_api.reply_message(
         event.reply_token,
