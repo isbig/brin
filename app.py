@@ -187,13 +187,13 @@ def handle_message(event):
     
     def kwam():
         if t == []:
-            if a == i + " เป็นคำประเภท " + 1:
+            if z == i + " เป็นคำประเภท " + 1:
                 # เก็บค่า r ให้ i ในตาราง pocha
                 n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + 1
                 return n
-            elif a != i + " เป็นคำประเภท " + r:
-                a = pood()
-                return a
+            elif z != i + " เป็นคำประเภท " + 1:
+                ka = pood()
+                return ka
         elif t != []:
             try:
                 m = random.choice(t) + " เป็นคำประเภทใด"
