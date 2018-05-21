@@ -160,19 +160,30 @@ def handle_message(event):
             return "ความรัก"
         elif t != []:
             try:
-                m = random.choice(t)
+                m = random.choice(t) + " เป็นคำประเภทใด"
             except IndexError:
                 pass
             return m
     q = kwam()
-    #i = ran(kamout(1))
-    #t = ran(kamout(2))
-    #w = ran(kamout(3))
-    #k = ran(kamout(4))
+
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = q + "เป็นคำประเภทใด"))
+        TextSendMessage(text = q)
     
+    def inputoutmes():
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+        
+        cur.execute("CREATE TABLE IF NOT EXISTS inputoutmes (word text, time TIMESTAMP NOT NULL);")
+
+        cur.execute("INSERT INTO inputoutmes (word, time) VALUES (%(str)s, NOW());", {'str':q})
+        conn.commit()
+        
+        cur.close()
+        conn.close()
     
 if __name__ == "__main__":
     app.run()
