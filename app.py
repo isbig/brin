@@ -176,6 +176,12 @@ def handle_message(event):
         if e != [] and c == []:
             w = str(e) + "ทำอะไร"
             return w
+        if e == [] and c == []:
+            q = "ใครทำอะไร"
+            return q
+        if e != [] and c != []:
+            y = "แล้วยังไงต่อ"
+            return y
             
     
     def kwam():
