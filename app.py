@@ -179,7 +179,7 @@ def handle_message(event):
             print("I am unable to connect to the database")
         cur = conn.cursor()
       
-        cur.execute("INSERT INTO pocha (prapet) VALUES (%(int)s) WHERE kam = (%(str)s);", {'str':i, 'int':r})
+        cur.execute("INSERT INTO pocha (prapet) VALUES (%(int)s) WHERE kam = %(str)s;", {'str':i, 'int':r})
         conn.commit()
     
         cur.close()
