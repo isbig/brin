@@ -167,14 +167,15 @@ def handle_message(event):
     
     t = vicr(s, out())
     e = vicr(s, kamout(1))
+    z = vicr(s, kamout(2))
     c = vicr(s, kamout(3))    
 
     def pood():
         if e == [] and c != []:
-            u = "ใคร" + str(c)
+            u = "อะไรหรือใครที่" + ''.join(z) + ''.join(c)
             return u
         if e != [] and c == []:
-            w = str(e) + "ทำอะไร"
+            w = c[0] + "ทำอะไร"
             return w
         if e == [] and c == []:
             q = "ใครทำอะไร"
