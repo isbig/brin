@@ -220,12 +220,12 @@ def handle_message(event):
         #i เปน q แรก    
         i = yol[0]
         rat = i + "เป็นคำประเภทหนึ่ง"
-        if z == rat:
+        if z == "น่ารัก":
             # เก็บค่า r ให้ i ในตาราง pocha
             n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + 1
             return n
         elif z != rat:
-            return rat
+            return "me"
             
     q = first()
 
