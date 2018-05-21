@@ -225,7 +225,7 @@ def handle_message(event):
             n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + 1
             return n
         elif z != "น่ารัก":
-            return "me"
+            return z
             
     q = first()
 
