@@ -222,7 +222,7 @@ def handle_message(event):
             # เก็บค่า r ให้ i ในตาราง pocha
             n = "ขอบคุณที่ให้ข้อมูลว่า " + i + " เป็นคำประเภท " + 1
             return n
-        elif:
+        elif z != i + " เป็นคำประเภท 1":
             return kwam()
             
     q = first()
