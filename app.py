@@ -13,11 +13,10 @@ from linebot.models import (
 import random
 import os
 import psycopg2
+import deepcut
 
 SEC = os.getenv('CAT')
 SEC_CS = os.getenv('CS')
-
-import deepcut
 
 app = Flask(__name__)
 
@@ -48,7 +47,8 @@ def handle_message(event):
     a = event.message.text
     DATABASE_URL = os.environ['DATABASE_URL']
     
-    def inputmes():
+    #รับข้อความจากคู่สนทนามาเก็บไว้ในฐานข้อมูล
+    def inputmes(brinn):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
@@ -57,12 +57,13 @@ def handle_message(event):
         
         cur.execute("CREATE TABLE IF NOT EXISTS inputmes (word text, time TIMESTAMP NOT NULL);")
 
-        cur.execute("INSERT INTO inputmes (word, time) VALUES (%(str)s, NOW());", {'str':a})
+        cur.execute("INSERT INTO inputmes (word, time) VALUES (%(str)s, NOW());", {'str':brinn})
         conn.commit()
         
         cur.close()
         conn.close()
-        
+    
+    #ใช้ข้อความล่าสุดจากคู่สนทนา ที่ถูกเก็บไว้ในฐานข้อมูล
     def usinputcur():
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -293,7 +294,7 @@ def handle_message(event):
     
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = ha))
+        TextSendMessage(text = za))
     
     inputoutmes(q)
     
