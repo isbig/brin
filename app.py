@@ -294,8 +294,9 @@ def handle_message(event):
     e = vicr(s, kamout(1))
     z = vicr(s, kamout(2))
     c = vicr(s, kamout(3))         
- 
-    q = first()
+    
+    ha = ' '.join(s)
+    q = ha
     
     line_bot_api.reply_message(
         event.reply_token,
