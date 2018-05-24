@@ -46,7 +46,7 @@ def callback():
 def handle_message(event):
     
     #นำข้อความจากคู่สนทนามาเก็บไว้ในฐานข้อมูล ในตาราง inputmes
-    def inputmes(brinn):
+    def inputmes(brin):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
@@ -55,7 +55,7 @@ def handle_message(event):
         
         cur.execute("CREATE TABLE IF NOT EXISTS inputmes (word text, time TIMESTAMP NOT NULL);")
 
-        cur.execute("INSERT INTO inputmes (word, time) VALUES (%(str)s, NOW());", {'str':brinn})
+        cur.execute("INSERT INTO inputmes (word, time) VALUES (%(str)s, NOW());", {'str':brin})
         conn.commit()
         
         cur.close()
@@ -79,8 +79,8 @@ def handle_message(event):
         return n
     
     #นำข้อความจากคู่สนทนามาแยก โดยใช้ deepcut แล้วเก็บไว้ในฐานข้อมูล ในตาราง pocha
-    def pocha():
-        B = deepcut.tokenize(a)
+    def pocha(brin):
+        B = deepcut.tokenize(brin)
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
@@ -120,14 +120,14 @@ def handle_message(event):
         return c
     
     #ใช้ข้อมูลจากตาราง pocha ที่มี prapet โดยใส่ประเภทผ่าน L
-    def kamout(L):
+    def kamout(brin):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
             print("I am unable to connect to the database")
         cur = conn.cursor()
         
-        cur.execute("SELECT kam FROM pocha WHERE prapet = %(lektan)s;", {'lektan':L})
+        cur.execute("SELECT kam FROM pocha WHERE prapet = %(lektan)s;", {'lektan':brin})
         m = cur.fetchall()
         b = []
         for x in m:
@@ -139,7 +139,7 @@ def handle_message(event):
         return c
     
     #นำข้อความที่ตอบคู่สนทนา มาเก็บไว้ในฐานข้อมูล ในตาราง inputoutmes
-    def inputoutmes(q):
+    def inputoutmes(brin):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
@@ -148,7 +148,7 @@ def handle_message(event):
         
         cur.execute("CREATE TABLE IF NOT EXISTS inputoutmes (word text, time TIMESTAMP NOT NULL);")
 
-        cur.execute("INSERT INTO inputoutmes (word, time) VALUES (%(str)s, NOW());", {'str':q})
+        cur.execute("INSERT INTO inputoutmes (word, time) VALUES (%(str)s, NOW());", {'str':brin})
         conn.commit()
         
         cur.close()
@@ -172,12 +172,12 @@ def handle_message(event):
         return n
     
     #นำ list มา random
-    def ran(S):
-        b = random.choice(S)
+    def ran(brin):
+        b = random.choice(brin)
         return b
     
     #ใส่ประเภทให้คำในตาราง pocha
-    def bogprapet(i,r):
+    def bogprapet(brin, brinn):
         B = deepcut.tokenize(a)
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -185,7 +185,7 @@ def handle_message(event):
             print("I am unable to connect to the database")
         cur = conn.cursor()
       
-        cur.execute("UPDATE pocha SET prapet = %(int)s WHERE kam = %(str)s;", {'str':i, 'int':r})
+        cur.execute("UPDATE pocha SET prapet = %(int)s WHERE kam = %(str)s;", {'str':brin, 'int':brinn})
         conn.commit()
     
         cur.close()
@@ -285,7 +285,7 @@ def handle_message(event):
     DATABASE_URL = os.environ['DATABASE_URL']
     
     inputmes(a)
-    pocha()
+    pocha(a)
    
     z = usinputcur()
     s = deepcut.tokenize(z, custom_dict='custom_dict.txt')
