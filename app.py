@@ -289,10 +289,11 @@ def handle_message(event):
 
     za = usinputcur()
     sa = deepcut.tokenize(za, custom_dict='custom_dict.txt')
+    ha = ' '.join(sa)
     
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = sa))
+        TextSendMessage(text = ha))
     
     inputoutmes(q)
     
