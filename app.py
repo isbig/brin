@@ -288,7 +288,7 @@ def handle_message(event):
     q = first()
 
     za = usinputcur()
-    sa = deepcut.tokenize(za, custom_dict='custom_dict.txt')
+    sa = deepcut.tokenize(za)
     ha = ' '.join(sa)
     
     line_bot_api.reply_message(
