@@ -190,7 +190,7 @@ def handle_message(event):
     pocha()
    
     z = usinputcur()
-    s = deepcut.tokenize(z)
+    s = deepcut.tokenize(z, custom_dict='custom_dict.txt')
 
     def vicr(P, G):
         v = [x for x in P if x in G]
