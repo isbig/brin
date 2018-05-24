@@ -44,10 +44,8 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    a = event.message.text
-    DATABASE_URL = os.environ['DATABASE_URL']
     
-    #รับข้อความจากคู่สนทนามาเก็บไว้ในฐานข้อมูล
+    #นำข้อความจากคู่สนทนามาเก็บไว้ในฐานข้อมูล ในตาราง inputmes
     def inputmes(brinn):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -63,7 +61,7 @@ def handle_message(event):
         cur.close()
         conn.close()
     
-    #ใช้ข้อความล่าสุดจากคู่สนทนา ที่ถูกเก็บไว้ในฐานข้อมูล
+    #ใช้ข้อความล่าสุดจากคู่สนทนา ที่ถูกเก็บไว้ในฐานข้อมูล ในตาราง inputmes
     def usinputcur():
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -79,7 +77,8 @@ def handle_message(event):
         cur.close()
         conn.close()
         return n
-        
+    
+    #นำข้อความจากคู่สนทนามาแยก โดยใช้ deepcut แล้วเก็บไว้ในฐานข้อมูล ในตาราง pocha
     def pocha():
         B = deepcut.tokenize(a)
         try:
@@ -100,7 +99,8 @@ def handle_message(event):
     
         cur.close()
         conn.close()
-        
+    
+    #ใช้ข้อมูลจากตาราง pocha ที่ไม่มี prapet
     def out():
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -118,7 +118,8 @@ def handle_message(event):
         cur.close()
         conn.close()
         return c
-
+    
+    #ใช้ข้อมูลจากตาราง pocha ที่มี prapet โดยใส่ประเภทผ่าน L
     def kamout(L):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -136,7 +137,8 @@ def handle_message(event):
         cur.close()
         conn.close()
         return c
-        
+    
+    #นำข้อความที่ตอบคู่สนทนา มาเก็บไว้ในฐานข้อมูล ในตาราง inputoutmes
     def inputoutmes(q):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -152,6 +154,7 @@ def handle_message(event):
         cur.close()
         conn.close()
         
+    #ใช้ข้อความล่าสุดที่ตอบคู่สนทนา       
     def usinputoutcur():
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -168,10 +171,12 @@ def handle_message(event):
         conn.close()
         return n
     
+    #นำ list มา random
     def ran(S):
         b = random.choice(S)
         return b
     
+    #ใส่ประเภทให้คำในตาราง pocha
     def bogprapet(i,r):
         B = deepcut.tokenize(a)
         try:
@@ -186,22 +191,12 @@ def handle_message(event):
         cur.close()
         conn.close()
     
-    
-    inputmes()
-    pocha()
-   
-    z = usinputcur()
-    s = deepcut.tokenize(z, custom_dict='custom_dict.txt')
-
+    #เลือกสิ่งที่มีเหมือนกันใน P และ G
     def vicr(P, G):
         v = [x for x in P if x in G]
         return v
     
-    t = vicr(s, out())
-    e = vicr(s, kamout(1))
-    z = vicr(s, kamout(2))
-    c = vicr(s, kamout(3))    
-
+    #ตอบประโยคจากการดูว่าในนั้นมีกริยาหรือประทานอย่างไรบ้าง
     def pood():
         if e == [] and c != []:
             u = "อะไรหรือใครที่" + ''.join(z) + ''.join(c)
@@ -215,8 +210,8 @@ def handle_message(event):
         if e != [] and c != []:
             y = "แล้วยังไงต่อ"
             return y
-            
-    # มีคำที่ไม่รู้ประเภทหรือไม่ ถ้าไม่มี ถ้ามีให้ถามว่าเป็นคำประเภทใด
+        
+    #ตอบประโยคจากการดูว่ามีคำที่ไม่รู้ประเภทหรือไม่ ถ้าไม่มี ถ้ามีให้ถามว่าเป็นคำประเภทใด
     def kwam():
         if t == []:
             ka = pood()
@@ -227,8 +222,6 @@ def handle_message(event):
             except IndexError:
                 pass
             return m
-    
-
     
     # มีประโยคที่รู้จักหรือไม่
     def first():
@@ -286,15 +279,27 @@ def handle_message(event):
             return n
         else:
             return kwam()
-    q = first()
+   
 
-    za = usinputcur()
-    sa = deepcut.tokenize(za)
-    ha = ' '.join(sa)
+    a = event.message.text
+    DATABASE_URL = os.environ['DATABASE_URL']
+    
+    inputmes(a)
+    pocha()
+   
+    z = usinputcur()
+    s = deepcut.tokenize(z, custom_dict='custom_dict.txt')
+   
+    t = vicr(s, out())
+    e = vicr(s, kamout(1))
+    z = vicr(s, kamout(2))
+    c = vicr(s, kamout(3))         
+ 
+    q = first()
     
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = za))
+        TextSendMessage(text = q))
     
     inputoutmes(q)
     
