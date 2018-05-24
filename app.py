@@ -287,9 +287,12 @@ def handle_message(event):
             return kwam()
     q = first()
 
+    za = usinputcur()
+    sa = deepcut.tokenize(za, custom_dict='custom_dict.txt')
+    
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = z))
+        TextSendMessage(text = sa))
     
     inputoutmes(q)
     
